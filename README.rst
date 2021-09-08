@@ -51,3 +51,64 @@ This question is answered in the ``cpp_py`` folder.
   cd ..
   PYTHONPATH=$(pwd)/build python3 test_03d.py
 
+
+Is Open3D more or less actively developed than PCL?
+---------------------------------------------------
+
+In short PCL and Open3D seem to be developed at a similar level.
+
+Checking out the libraries and looking at the number of commits using
+
+.. code-block:: console
+
+    git log --since '2020/08/30' --dense --oneline | wc -l
+
+with different dates at the default branch yields:
+
+.. list-table:: Number of commits
+
+    * - Library
+      - 3 year commits
+      - 1 year commits
+      - 6 month commits
+      - 3 month commits
+    * - PCL
+      - 2906
+      - 569
+      - 304
+      - 110
+    * - Open3D
+      - 1717
+      - 690
+      - 344
+      - 153
+
+They seem similar in the number of commits, but Open3D has more.
+
+Looking at the number of commit authors with
+
+.. code-block:: console
+
+    git log --since '2021/05/31' --dense --pretty=%an | sort | uniq | wc -l
+
+at different dates at the default branch yeilds:
+
+.. list-table:: Number of contributors
+
+    * - Library
+      - 3 year contributors
+      - 1 year contributors
+      - 6 month contributors
+      - 3 month contributors
+    * - PCL
+      - 160
+      - 58
+      - 41
+      - 24
+    * - Open3D
+      - 106
+      - 50
+      - 27
+      - 19
+
+They seem similar in the number of contributors too, but PCL has more.
