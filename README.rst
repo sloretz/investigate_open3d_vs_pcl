@@ -1,6 +1,34 @@
 Open3D and PCL Comparison
 =========================
 
+Who's using Open3D in the ROS community
+---------------------------------------
+
+There is a `rosdep key python3-open3d-pip <https://github.com/ros/rosdistro/blob/d208d0b7fee8dcf2cad4d540fc055d9d9be3b6a8/rosdep/python.yaml#L2988>`_ added in `ros/rosdistro#28352 <https://github.com/ros/rosdistro/pull/28352>`_.
+This kind of key cannot be used by released packages, so its presence suggests someone is using it in an unreleased ROS package.
+
+There is a ``perception_open3d`` repository that is released into Melodic and Noetic (ROS 1) `ros-perception/perception_open3d <https://github.com/ros-perception/perception_open3d>`_ that was originally available at `ntnu-arl/open3d_ros <https://github.com/ntnu-arl/open3d_ros>`_.
+There is a `ROS World 2020 Lightning talk about it <https://vimeo.com/480560723>`_.
+The package depends on Open3d, but does not list a rosdep key in its ``package.xml``.
+Instead it documents that Open3D must be installed manually.
+The repo provides a conversions package and an examples package.
+It has conversions from ``open3d::t::geometry::PointCloud`` and ``open3d::geometry::PointCloud`` to/from ``sensor_msgs::PointCloud2``.
+There `is a foxy-devel branch <https://github.com/ros-perception/perception_open3d/tree/foxy-devel/open3d_conversions>`_ with conversions from ``open3d::geometry::PointCloud`` to/from ``sensor_msgs::PointCloud2``, but it has not been released.
+
+An improvement here would be to create rosdep keys for ``libopen3d-dev``, ``python3-open3d`` and ``libopen3d0d``.
+These packages won't be available for use in Rolling until the next LTS release of Ubuntu.
+The version in Debian upstream is 0.9.0. Some time spent updating the version in Debian may be a good idea before Ubuntu branches off of it.
+
+* https://packages.debian.org/bullseye/libopen3d-dev
+* https://packages.debian.org/bullseye/libopen3d0d
+* https://packages.debian.org/bullseye/python3-open3d
+* https://packages.ubuntu.com/hirsute/libopen3d-dev
+* https://packages.ubuntu.com/hirsute/python3-open3d
+* https://packages.ubuntu.com/hirsute/libopen3d0d
+
+There is a Python package for converting Open3D types to PointCloud messages (ROS Melodic only?) `SeungBack/open3d-ros-helper <https://github.com/SeungBack/open3d-ros-helper>`_.
+
+
 Can I pass Python datastructures to C++ and back?
 -------------------------------------------------
 
