@@ -12,8 +12,3 @@ target_link_libraries(o3d_cpp_py PRIVATE
   Python3::Module
   Open3D::Open3D
 )
-
-# davidcaron/pclpy
-ExternalProject_Add(pclpy
-  URL https://github.com/davidcaron/pclpy/archive/refs/tags/0.12.0.tar.gz
-  URL_HASH SHA256=720b54bb5ac282a5994192caf10b9799ef4c30dc2f9d4cd98568c85daf20a230
