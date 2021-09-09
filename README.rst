@@ -115,7 +115,7 @@ They seem similar in the number of contributors too, but PCL has more.
 
 
 What's the support for GPUs look like in Open3D and PCL?
----------------------------------------------------------------
+--------------------------------------------------------
 
 Open3d starts to have CUDA support in 0.10.0.
 The developers are `incrementally rolling it out <https://github.com/isl-org/Open3D/issues/942#issuecomment-670255854>`_.
@@ -123,3 +123,70 @@ It looks like types in the ``open3d::t`` namespace (``t`` stands for tensor) sup
 
 PCL appears to have CUDA implementations of some features available in the ``pcl::gpu::`` C++ namespace.
 NVIDIA maintains a library `NVIDIA-AI-IOT/cuda-pcl <https://github.com/NVIDIA-AI-IOT/cuda-pcl>`_ for some operations on PCL types.
+
+
+What's the difference in execution time?
+----------------------------------------
+
+The ``benchmark`` folder attempts to answer this.
+Open3D 0.9.0 and PCL 1.11.1 from Debian packages on Debian Bullseye were used.
+
+.. code-block:: console
+
+    cd benchmark
+    mkdir build
+    cd build
+    cmake ..
+    make
+    ln -s ../bunny.pcd
+    ./iterative_closest_point
+    ./voxel_downsample
+
+
+Comparing Voxel downsampling seems reasonable as the two libraries should have the same output.
+Open3D seems significantly faster.
+
+
+.. code-block:: console
+
+    $ ./voxel_downsample
+    2021-09-09T12:03:14-07:00
+    Running ./voxel_downsample
+    Run on (24 X 4950.19 MHz CPU s)
+    CPU Caches:
+      L1 Data 32 KiB (x12)
+      L1 Instruction 32 KiB (x12)
+      L2 Unified 512 KiB (x12)
+      L3 Unified 32768 KiB (x2)
+    Load Average: 0.27, 0.38, 0.36
+    ***WARNING*** CPU scaling is enabled, the benchmark real time measurements may be noisy and will incur extra overhead.
+    -----------------------------------------------------
+    Benchmark           Time             CPU   Iterations
+    -----------------------------------------------------
+    BM_open3d       12449 ns        12431 ns        56480
+    BM_pcl          49400 ns        49332 ns        14117
+
+
+Comparing ICP may not be reasonable as the two libraries have different convergence criteria.
+PCL appears to have rotation and translation thresholds, while Open3D has relative fitness and RMSE thresholds.
+The data below may not be useful.
+
+
+.. code-block:: console
+
+    $ ./iterative_closest_point
+    2021-09-09T12:08:04-07:00
+    Running ./iterative_closest_point
+    Run on (24 X 4950.19 MHz CPU s)
+    CPU Caches:
+      L1 Data 32 KiB (x12)
+      L1 Instruction 32 KiB (x12)
+      L2 Unified 512 KiB (x12)
+      L3 Unified 32768 KiB (x2)
+    Load Average: 0.22, 0.32, 0.34
+    ***WARNING*** CPU scaling is enabled, the benchmark real time measurements may be noisy and will incur extra overhead.
+    -----------------------------------------------------
+    Benchmark           Time             CPU   Iterations
+    -----------------------------------------------------
+    BM_open3d     2002711 ns      1971130 ns          350
+    BM_pcl       15637302 ns     15633577 ns           45
