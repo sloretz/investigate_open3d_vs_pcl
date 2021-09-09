@@ -112,3 +112,14 @@ at different dates at the default branch yeilds:
       - 19
 
 They seem similar in the number of contributors too, but PCL has more.
+
+
+What's the support for GPUs look like in Open3D and PCL?
+---------------------------------------------------------------
+
+Open3d starts to have CUDA support in 0.10.0.
+The developers are `incrementally rolling it out <https://github.com/isl-org/Open3D/issues/942#issuecomment-670255854>`_.
+It looks like types in the ``open3d::t`` namespace (``t`` stands for tensor) support being run on an NVidia GPU.
+
+PCL appears to have CUDA implementations of some features available in the ``pcl::gpu::`` C++ namespace.
+NVIDIA maintains a library `NVIDIA-AI-IOT/cuda-pcl <https://github.com/NVIDIA-AI-IOT/cuda-pcl>`_ for some operations on PCL types.
